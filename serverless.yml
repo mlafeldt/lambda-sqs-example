@@ -1,0 +1,33 @@
+---
+# Requires https://serverless.com/blog/serverless-updates-framework-v128/ or later
+
+service: lambda-sqs-example
+
+provider:
+  name: aws
+  runtime: go1.x
+  stage: ${opt:stage, 'staging'}
+  region: ${env:AWS_REGION}
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+
+functions:
+  worker:
+    handler: bin/worker
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:service}-${self:provider.stage}

@@ -18,12 +18,14 @@ package:
 functions:
   worker:
     handler: bin/worker
+    reservedConcurrency: 10
     events:
       - sqs:
           arn:
             Fn::GetAtt:
               - SQSQueue
               - Arn
+          batchSize: 1
 
 resources:
   Resources:

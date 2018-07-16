@@ -18,6 +18,7 @@ package:
 functions:
   worker:
     handler: bin/worker
+    timeout: 25
     reservedConcurrency: 10
     events:
       - sqs:
@@ -33,3 +34,4 @@ resources:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: ${self:service}-${self:provider.stage}
+        VisibilityTimeout: 30

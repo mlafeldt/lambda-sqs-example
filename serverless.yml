@@ -1,5 +1,5 @@
 ---
-# Requires https://serverless.com/blog/serverless-updates-framework-v128/ or later
+frameworkVersion: ">=1.28.0 <2.0.0"
 
 service: lambda-sqs-example
 

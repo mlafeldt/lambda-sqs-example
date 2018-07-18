@@ -5,7 +5,7 @@ service: lambda-sqs-example
 
 provider:
   name: aws
-  runtime: go1.x
+  runtime: python3.6
   stage: ${opt:stage, 'staging'}
   region: ${env:AWS_REGION}
 
@@ -13,11 +13,11 @@ package:
   exclude:
     - ./**
   include:
-    - ./bin/**
+    - ./worker.py
 
 functions:
   worker:
-    handler: bin/worker
+    handler: worker.handler
     timeout: 25
     reservedConcurrency: 10
     events:
